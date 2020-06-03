@@ -1,11 +1,12 @@
 {
   "name": "nestjs-clickup",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "ClickUp Module for NestJS",
   "author": "Space Rocket",
   "license": "MIT",
   "url": "https://github.com/spacerkt/nestjs-clickup#readme",
   "scripts": {
+    "prepare": "npm run build",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -15,7 +16,9 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
   "devDependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
@@ -40,7 +43,8 @@
     "typescript": "^3.7.4"
   },
   "peerDependencies": {
-    "@nestjs/common": "^6.10.0 || ^7.0.0",
+    "@nestjs/common": "^6.7.0 || ^7.0.0",
+    "@nestjs/core": "^6.7.0 || ^7.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0"
   },

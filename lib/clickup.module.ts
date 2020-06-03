@@ -3,7 +3,10 @@ import { Module, DynamicModule } from '@nestjs/common';
 import { ClickUpCoreModule } from './clickup-core.module';
 import { ClickUpService } from './clickup.service';
 
-import { ClickUpModuleOptions } from './interfaces/clickup.interface';
+import {
+  ClickUpModuleOptions,
+  ClickUpAsyncModuleOptions,
+} from './interfaces/clickup.interface';
 
 @Module({
   // imports: [ClickUpCoreModule],
@@ -16,6 +19,16 @@ export class ClickUpModule {
       module: ClickUpModule,
       global: options.isGlobal,
       imports: [ClickUpCoreModule.forRoot(options)],
+      providers: [ClickUpService],
+      exports: [ClickUpService],
+    };
+  }
+
+  static forRootAsync(options: ClickUpAsyncModuleOptions): DynamicModule {
+    return {
+      module: ClickUpModule,
+      global: options.isGlobal,
+      imports: [ClickUpCoreModule.forRootAsync(options)],
       providers: [ClickUpService],
       exports: [ClickUpService],
     };
