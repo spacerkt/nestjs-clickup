@@ -1,6 +1,6 @@
 {
   "name": "nestjs-clickup",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "description": "ClickUp Module for NestJS",
   "author": "Space Rocket",
   "license": "MIT",

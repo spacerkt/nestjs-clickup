@@ -7,7 +7,7 @@ export interface TaskPayload {
   tags?: string[];
   parent?: number;
   assignees?: number[];
-  notify_all: boolean;
+  notify_all?: boolean;
   due_date?: number;
   due_date_time?: boolean;
   time_estimate?: number;
