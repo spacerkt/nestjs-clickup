@@ -1,4 +1,4 @@
-import { Module, DynamicModule } from '@nestjs/common';
+import { Module, DynamicModule, Logger } from '@nestjs/common';
 import { TaskProvider } from './providers/task.provider';
 import {
   ClickUpModuleOptions,
@@ -24,18 +24,14 @@ export class ClickUpCoreModule {
   }
 
   static forRootAsync(options: ClickUpAsyncModuleOptions): DynamicModule {
-    let inject: any[] = [CLICKUP_OPTIONS];
-    if (options.inject) {
-      inject = inject.concat(options.inject);
-    }
     return {
       module: ClickUpCoreModule,
-      imports: options.imports,
+      imports: options.imports || [],
       providers: [
         {
           provide: CLICKUP_OPTIONS,
           useFactory: options.useFactory,
-          inject,
+          inject: options.inject || [],
         },
         TaskProvider,
       ],

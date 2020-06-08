@@ -12,4 +12,5 @@ export interface ClickUpAsyncModuleOptions
   ) => ClickUpModuleOptions | Promise<ClickUpModuleOptions>;
   inject?: any[];
   isGlobal?: boolean;
+  debug?: boolean;
 }
