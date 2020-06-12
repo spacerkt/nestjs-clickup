@@ -23,7 +23,6 @@ export class TaskProvider extends BaseProvider {
   }
 
   async create(listId: number, payload: TaskPayload): Promise<TaskEntity> {
-    // data: payload,
     const res = await this.axios.post(this.baseUrl(listId), payload);
     return res.data;
   }
@@ -40,6 +39,6 @@ export class TaskProvider extends BaseProvider {
 
   async destroy(listId: number, taskId: number): Promise<void> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    await this.axios.delete(url, {});
+    await this.axios.delete(url);
   }
 }
