@@ -1,5 +1,17 @@
 import { TaskPriority } from '../enums/task-priority.enum';
 
+interface CustomField {
+  status: string;
+  status_type: string;
+  id: string;
+  name: string;
+  type: string;
+  type_config: Record<string, unknown>;
+  hide_from_guests: boolean;
+  v1_field: boolean;
+  value_deleted: string;
+}
+
 export interface TaskPayload {
   name: string;
   content?: string;
@@ -13,4 +25,5 @@ export interface TaskPayload {
   time_estimate?: number;
   start_date?: number;
   start_date_time?: boolean;
+  custom_fields: CustomField[];
 }
