@@ -25,5 +25,5 @@ export interface TaskPayload {
   time_estimate?: number;
   start_date?: number;
   start_date_time?: boolean;
-  custom_fields: CustomField[];
+  custom_fields?: CustomField[];
 }
