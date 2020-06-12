@@ -1,6 +1,6 @@
 import { TaskPriority } from '../enums/task-priority.enum';
 
-interface CustomField {
+export interface CustomField<T = unknown | unknown[]> {
   status?: string;
   status_type?: string;
   id?: string;
@@ -10,6 +10,7 @@ interface CustomField {
   hide_from_guests?: boolean;
   v1_field?: boolean;
   value_deleted?: string;
+  value: T;
 }
 
 export interface TaskPayload {
