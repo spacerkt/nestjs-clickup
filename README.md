@@ -42,10 +42,11 @@ export class FeedbackModule {}
 ### Create a task
 
 ```typescript
+@Injectable()
 export class FeedbackService {
   constructor(private readonly clickupService: ClickUpService) {}
 
-  async createFeedback(feedbackDto: FeedbackDto): Promise<Feedback> {
+  async createFeedback(feedbackDto: FeedbackDto) {
      // create feedback locally then create as task in feedback list
      await this.clickupService.task.create(feedbackListId, {
        name: "New Feedback",
