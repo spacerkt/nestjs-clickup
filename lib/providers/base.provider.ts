@@ -8,6 +8,9 @@ export abstract class BaseProvider {
   constructor(
     @Inject(CLICKUP_OPTIONS) private readonly options: ClickUpModuleOptions,
   ) {
+    if (!this.options.token) {
+      throw Error('Missing ClickUp Token');
+    }
     this.axios = axios.create({
       headers: {
         Authorization: this.options.token,
