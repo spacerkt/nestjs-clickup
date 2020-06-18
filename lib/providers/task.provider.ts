@@ -19,7 +19,7 @@ export class TaskProvider extends BaseProvider {
 
   async fetchAll(listId: number): Promise<TaskEntity[]> {
     const res = await this.axios.get(this.baseUrl(listId));
-    return res.data;
+    return res.data.tasks;
   }
 
   async create(listId: number, payload: TaskPayload): Promise<TaskEntity> {
