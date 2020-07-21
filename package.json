@@ -1,6 +1,6 @@
 {
   "name": "nestjs-clickup",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "ClickUp Module for NestJS",
   "author": "Space Rocket",
   "license": "MIT",
@@ -17,7 +17,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
@@ -67,3 +68,4 @@
     "url": "https://github.com/spacerkt/nestjs-clickup"
   }
 }
+
