@@ -28,12 +28,10 @@ export class OAuthProvider extends BaseProvider {
         'Credentials not provided. Please fill clientId and secret info',
       );
     }
+    const query = new URLSearchParams({ code, ...this.credentials }).toString();
     return new Promise<ClickUpTokenResult>((resolve, reject) =>
       this.axios
-        .post<ClickUpTokenResult>(this.baseUrl() + '/token', {
-          code,
-          ...this.credentials,
-        })
+        .post<ClickUpTokenResult>(this.baseUrl() + '/token?' + query)
         .then(res => resolve(res.data))
         .catch(err => reject(err)),
     );
