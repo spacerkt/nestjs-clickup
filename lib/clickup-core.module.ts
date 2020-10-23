@@ -13,6 +13,10 @@ export class ClickUpCoreModule {
     return [TaskProvider, OAuthProvider];
   }
 
+  private static commonExports(): Provider[] {
+    return this.commonProviders();
+  }
+
   static forRoot(options: ClickUpModuleOptions): DynamicModule {
     return {
       module: ClickUpCoreModule,
@@ -24,23 +28,23 @@ export class ClickUpCoreModule {
         },
         ...this.commonProviders(),
       ],
-      exports: [TaskProvider],
+      exports: this.commonExports(),
     };
   }
 
   static forRootAsync(options: ClickUpAsyncModuleOptions): DynamicModule {
     return {
       module: ClickUpCoreModule,
-      imports: options.imports || [],
+      imports: options.imports ?? [],
       providers: [
         {
           provide: CLICKUP_OPTIONS,
           useFactory: options.useFactory,
-          inject: options.inject || [],
+          inject: options.inject ?? [],
         },
         ...this.commonProviders(),
       ],
-      exports: [TaskProvider],
+      exports: this.commonExports(),
     };
   }
 }
