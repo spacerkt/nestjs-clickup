@@ -1,13 +1,18 @@
-import { Module, DynamicModule, Logger } from '@nestjs/common';
+import { Module, DynamicModule, Provider } from '@nestjs/common';
 import { TaskProvider } from './providers/task.provider';
 import {
   ClickUpModuleOptions,
   ClickUpAsyncModuleOptions,
 } from './interfaces/clickup.interface';
 import { CLICKUP_OPTIONS } from './clickup.constants';
+import { OAuthProvider } from './providers/oauth.provider';
 
 @Module({})
 export class ClickUpCoreModule {
+  private static commonProviders(): Provider[] {
+    return [TaskProvider, OAuthProvider];
+  }
+
   static forRoot(options: ClickUpModuleOptions): DynamicModule {
     return {
       module: ClickUpCoreModule,
@@ -17,7 +22,7 @@ export class ClickUpCoreModule {
           useValue: options,
           inject: [CLICKUP_OPTIONS],
         },
-        TaskProvider,
+        ...this.commonProviders(),
       ],
       exports: [TaskProvider],
     };
@@ -33,7 +38,7 @@ export class ClickUpCoreModule {
           useFactory: options.useFactory,
           inject: options.inject || [],
         },
-        TaskProvider,
+        ...this.commonProviders(),
       ],
       exports: [TaskProvider],
     };
