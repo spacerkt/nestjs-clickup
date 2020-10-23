@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseProvider } from './base.provider';
 import { TaskPayload } from '../interfaces/task-payload.interface';
 import { BASE_URL } from '../clickup.constants';
-import { TaskEntity } from '../interfaces/task.entity';
+import { TaskClickUp } from '../interfaces/task-clickup.interface';
 
 @Injectable()
 export class TaskProvider extends BaseProvider {
@@ -11,29 +11,29 @@ export class TaskProvider extends BaseProvider {
     return `${BASE_URL}/list/${id}/task`;
   }
 
-  fetch(listId: number, taskId: number): Promise<TaskEntity> {
+  fetch(listId: number, taskId: number): Promise<TaskClickUp> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    return new Promise<TaskEntity>((resolve, reject) =>
+    return new Promise<TaskClickUp>((resolve, reject) =>
       this.axios
-        .get<TaskEntity>(url)
+        .get<TaskClickUp>(url)
         .then(res => resolve(res.data))
         .catch(err => reject(err)),
     );
   }
 
-  fetchAll(listId: number): Promise<TaskEntity[]> {
-    return new Promise<TaskEntity[]>((resolve, reject) =>
+  fetchAll(listId: number): Promise<TaskClickUp[]> {
+    return new Promise<TaskClickUp[]>((resolve, reject) =>
       this.axios
-        .get<TaskEntity[]>(this.baseUrl(listId))
+        .get<TaskClickUp[]>(this.baseUrl(listId))
         .then(res => resolve(res.data))
         .catch(err => reject(err)),
     );
   }
 
-  create(listId: number, payload: TaskPayload): Promise<TaskEntity> {
-    return new Promise<TaskEntity>((resolve, reject) =>
+  create(listId: number, payload: TaskPayload): Promise<TaskClickUp> {
+    return new Promise<TaskClickUp>((resolve, reject) =>
       this.axios
-        .post<TaskEntity>(this.baseUrl(listId), payload)
+        .post<TaskClickUp>(this.baseUrl(listId), payload)
         .then(res => resolve(res.data))
         .catch(err => reject(err)),
     );
@@ -43,11 +43,11 @@ export class TaskProvider extends BaseProvider {
     listId: number,
     taskId: number,
     payload: TaskPayload,
-  ): Promise<TaskEntity> {
+  ): Promise<TaskClickUp> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    return new Promise<TaskEntity>((resolve, reject) =>
+    return new Promise<TaskClickUp>((resolve, reject) =>
       this.axios
-        .put<TaskEntity>(url, payload)
+        .put<TaskClickUp>(url, payload)
         .then(res => resolve(res.data))
         .catch(err => reject(err)),
     );

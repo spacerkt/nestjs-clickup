@@ -6,13 +6,17 @@ NestJS Module to access ClickUP API
 
 - CRUD Task
 
+- OAuth
+
+- Team
+
 ## Incoming Features
 
 
 
 ## Why this module have only these features?
 
-This project was initialized based on one requirement: create an task in Clickup based on an event. Because of that, right now it's the only feature implemented. Feel free to add more features, send us your pull request!
+This project was initialized based on one requirement: create an task in Clickup based on an event. That been saied, new features and improvements are added quite slowly. Feel free to contribute, send us your pull request!
 
 ## Installation
 
@@ -28,8 +32,11 @@ $ npm ci
 @Module({
   imports: [
     ClickUpModule.forRootAsync({
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         token: configService.get<string>('CLICKUP_TOKEN')
+        client_id: configService.get<string>('CLICKUP_CLIENT_ID'), // only required for oauth flow
+        secret: configService.get<string>('CLICKUP_SECRET') // only required for oauth flow
       }),
       inject: [ConfigService],
     }),

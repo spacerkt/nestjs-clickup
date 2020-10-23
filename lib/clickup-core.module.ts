@@ -1,16 +1,18 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
-import { TaskProvider } from './providers/task.provider';
 import {
   ClickUpModuleOptions,
   ClickUpAsyncModuleOptions,
 } from './interfaces/clickup.interface';
 import { CLICKUP_OPTIONS } from './clickup.constants';
+
+import { TaskProvider } from './providers/task.provider';
 import { OAuthProvider } from './providers/oauth.provider';
+import { TeamProvider } from './providers/team.provider';
 
 @Module({})
 export class ClickUpCoreModule {
   private static commonProviders(): Provider[] {
-    return [TaskProvider, OAuthProvider];
+    return [TaskProvider, OAuthProvider, TeamProvider];
   }
 
   private static commonExports(): Provider[] {

@@ -1,6 +1,7 @@
 import { TaskPriority } from '../enums/task-priority.enum';
+import { UserClickUp } from './user-clickup.interface';
 
-export interface TaskEntity {
+export interface TaskClickUp {
   id: string;
   name: string;
   status: {
@@ -13,12 +14,7 @@ export interface TaskEntity {
   date_created: number;
   date_updated: number;
   date_closed: number;
-  creator: {
-    id: number;
-    username: string;
-    color: string;
-    profilePicture: string;
-  };
+  creator: UserClickUp;
   assignees: number[];
   checklists: any[];
   tags: string[];
