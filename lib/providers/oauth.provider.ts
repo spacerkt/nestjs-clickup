@@ -1,23 +1,21 @@
+/* eslint @typescript-eslint/camelcase: 0 */
 import { Inject, Injectable } from '@nestjs/common';
 import { BASE_URL, CLICKUP_OPTIONS } from '../clickup.constants';
 import { TokenProviderError } from '../errors/token-provider.error';
-import {
-  ClickUpModuleOAuthCredentials,
-  ClickUpModuleOptions,
-} from '../interfaces';
+import { ClickUpModuleOptions } from '../interfaces';
+import { ClickUpOAuthCredentials } from '../interfaces/clickup-oauth-credentials.interface';
 import { ClickUpTokenResult } from '../interfaces/clickup-token-result.dto';
 import { BaseProvider } from './base.provider';
 
 @Injectable()
 export class OAuthProvider extends BaseProvider {
-  private readonly credentials: ClickUpModuleOAuthCredentials;
+  private readonly credentials: ClickUpOAuthCredentials | null;
   constructor(@Inject(CLICKUP_OPTIONS) options: ClickUpModuleOptions) {
     super(options);
-    this.credentials = { clientId: options.clientId!, secret: options.secret! };
-  }
-
-  private isCredentialsValid(): boolean {
-    return !!this.credentials.secret && !!this.credentials.clientId;
+    this.credentials =
+      options.clientId && options.secret
+        ? { client_secret: options.secret, client_id: options.clientId }
+        : null;
   }
 
   private baseUrl(): string {
@@ -25,7 +23,7 @@ export class OAuthProvider extends BaseProvider {
   }
 
   token(code: string): Promise<ClickUpTokenResult> {
-    if (!this.isCredentialsValid()) {
+    if (!this.credentials) {
       throw new TokenProviderError(
         'Credentials not provided. Please fill clientId and secret info',
       );
