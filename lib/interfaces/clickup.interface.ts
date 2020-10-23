@@ -1,6 +1,12 @@
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 
-export interface ClickUpModuleOptions {
+export interface ClickUpModuleOAuthCredentials {
+  clientId: string;
+  secret: string;
+}
+
+export interface ClickUpModuleOptions
+  extends Partial<ClickUpModuleOAuthCredentials> {
   token: string;
   isGlobal?: boolean;
 }

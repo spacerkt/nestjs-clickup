@@ -11,34 +11,55 @@ export class TaskProvider extends BaseProvider {
     return `${BASE_URL}/list/${id}/task`;
   }
 
-  async fetch(listId: number, taskId: number): Promise<TaskEntity> {
+  fetch(listId: number, taskId: number): Promise<TaskEntity> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    const res = await this.axios.get(url);
-    return res.data;
+    return new Promise<TaskEntity>((resolve, reject) =>
+      this.axios
+        .get<TaskEntity>(url)
+        .then(res => resolve(res.data))
+        .catch(err => reject(err)),
+    );
   }
 
-  async fetchAll(listId: number): Promise<TaskEntity[]> {
-    const res = await this.axios.get(this.baseUrl(listId));
-    return res.data.tasks;
+  fetchAll(listId: number): Promise<TaskEntity[]> {
+    return new Promise<TaskEntity[]>((resolve, reject) =>
+      this.axios
+        .get<TaskEntity[]>(this.baseUrl(listId))
+        .then(res => resolve(res.data))
+        .catch(err => reject(err)),
+    );
   }
 
-  async create(listId: number, payload: TaskPayload): Promise<TaskEntity> {
-    const res = await this.axios.post(this.baseUrl(listId), payload);
-    return res.data;
+  create(listId: number, payload: TaskPayload): Promise<TaskEntity> {
+    return new Promise<TaskEntity>((resolve, reject) =>
+      this.axios
+        .post<TaskEntity>(this.baseUrl(listId), payload)
+        .then(res => resolve(res.data))
+        .catch(err => reject(err)),
+    );
   }
 
-  async update(
+  update(
     listId: number,
     taskId: number,
     payload: TaskPayload,
   ): Promise<TaskEntity> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    const res = await this.axios.put(url, payload);
-    return res.data;
+    return new Promise<TaskEntity>((resolve, reject) =>
+      this.axios
+        .put<TaskEntity>(url, payload)
+        .then(res => resolve(res.data))
+        .catch(err => reject(err)),
+    );
   }
 
-  async destroy(listId: number, taskId: number): Promise<void> {
+  destroy(listId: number, taskId: number): Promise<void> {
     const url = `${this.baseUrl(listId)}/${taskId}`;
-    await this.axios.delete(url);
+    return new Promise<void>((resolve, reject) =>
+      this.axios
+        .delete(url)
+        .then(() => resolve())
+        .catch(err => reject(err)),
+    );
   }
 }
