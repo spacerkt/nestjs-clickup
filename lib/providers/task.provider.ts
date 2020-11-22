@@ -4,6 +4,7 @@ import { BaseProvider } from './base.provider';
 import { TaskPayload } from '../interfaces/task-payload.interface';
 import { BASE_URL } from '../clickup.constants';
 import { TaskClickUp } from '../interfaces/task-clickup.interface';
+import { TaskFetchAllAPIResponse } from '../interfaces/task-fetch-all-api-response.interface';
 
 @Injectable()
 export class TaskProvider extends BaseProvider {
@@ -24,8 +25,8 @@ export class TaskProvider extends BaseProvider {
   fetchAll(listId: number): Promise<TaskClickUp[]> {
     return new Promise<TaskClickUp[]>((resolve, reject) =>
       this.axios
-        .get<TaskClickUp[]>(this.baseUrl(listId))
-        .then(res => resolve(res.data))
+        .get<TaskFetchAllAPIResponse>(this.baseUrl(listId))
+        .then(res => resolve(res.data.tasks))
         .catch(err => reject(err)),
     );
   }
